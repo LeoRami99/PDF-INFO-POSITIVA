@@ -183,13 +183,14 @@ def process_pdf():
     Endpoint para procesar un PDF desde Base64.
     """
     try:
-        data = request.json
-        if not data:
-            return jsonify({"status": "error", "message": "El cuerpo de la solicitud está vacío"}), 400
+        data_params = request.args
         
-        type_document = data.get("type_document")
-        num_document = data.get("num_document")
-        form_type = data.get("form_type")
+        if not data_params:
+            return jsonify({"status": "error", "message": "No se proporcionaron parámetros en la solicitud"}), 400
+
+        type_document = data_params.get("type_document")
+        num_document = data_params.get("num_document")
+        form_type = data_params.get("form_type")
 
         if not type_document or not num_document or not form_type:
             return jsonify({"status": "error", "message": "Faltan parámetros en la solicitud"}), 400
