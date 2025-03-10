@@ -1,30 +1,41 @@
-# Imagen base de Python
-FROM python:3.9-slim
+# Use a specific Python version for better reproducibility
+FROM python:3.9-slim-bullseye
 
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on
 
-# ENV VARIABLES PARA LA AUTENTICACIÓN DE LA API DE RED5G
-
+# Authentication variables (consider using secrets in production)
 ENV USERNAME=
 ENV PASSWORD=
 
-# Establecer el directorio de trabajo en el contenedor
+# Set working directory
 WORKDIR /app
 
-# Copiar el archivo de requerimientos
+# Install production dependencies
 COPY requirements.txt .
-
-# Instalar las dependencias necesarias
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install gunicorn
 
-# Copiar el resto de los archivos de la aplicación al contenedor
-COPY . .
 
-# Establecer la variable de entorno para habilitar el modo de desarrollo de Flask
+# Create a non-root user for security
+RUN adduser --disabled-password --gecos "" appuser
+
+# Copy application code
+COPY --chown=appuser:appuser . .
+
+# Switch to non-root user
+USER appuser
+
+# Set Flask production configuration
 ENV FLASK_APP=app.py
+ENV FLASK_ENV=production
 ENV FLASK_RUN_HOST=0.0.0.0
 
-# Exponer el puerto en el que Flask corre
+# Expose port
 EXPOSE 5000
 
-# Comando para iniciar la aplicación
-CMD ["flask", "run"]
+# Use gunicorn for production
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app", "--workers", "4"]
