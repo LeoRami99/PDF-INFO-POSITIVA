@@ -50,7 +50,7 @@ def fetch_document_number_from_api(type_document, num_documento, form_type):
             raise ValueError("Tipo de formulario no válido")
         headers = {"Authorization": f"Bearer {token}"}
         response = requests.get(
-            f"https://7ifsjev272.execute-api.us-east-1.amazonaws.com/fcc/validate-document/{type_document}/{num_documento}?form_type={form_type}",
+            f"https://b1mhaxbr51.execute-api.us-east-1.amazonaws.com/fcc/validate-document/{type_document}/{num_documento}?form_type={form_type}",
             headers=headers
         )
         response.raise_for_status()
