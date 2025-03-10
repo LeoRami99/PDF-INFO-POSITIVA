@@ -7,7 +7,7 @@ import requests
 import os
 
 # Configuración de la API y credenciales
-AUTH_API_URL = "https://ro43pbi9ca.execute-api.us-east-1.amazonaws.com/login/oauth/authenticate/v1"
+AUTH_API_URL = "https://0fyl9sz8k3.execute-api.us-east-1.amazonaws.com/login/oauth/authenticate/v1"
 USERNAME = os.getenv("USERNAME")
 PASSWORD = os.getenv("PASSWORD")
 
