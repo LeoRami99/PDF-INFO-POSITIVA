@@ -4,3 +4,4 @@
 /output.json
 /output.txt
 .python-version
+.env
