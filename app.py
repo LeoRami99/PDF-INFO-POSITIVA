@@ -8,8 +8,8 @@ import os
 
 # Configuración de la API y credenciales
 AUTH_API_URL = "https://ro43pbi9ca.execute-api.us-east-1.amazonaws.com/login/oauth/authenticate/v1"
-USERNAME = os.getenv("USERNAME")
-PASSWORD = os.getenv("PASSWORD")
+USERNAME = os.getenv("APP_PDF_USERNAME")
+PASSWORD = os.getenv("APP_PDF_PASSWORD")
 
 if not USERNAME or not PASSWORD:
     raise ValueError("Las credenciales no están configuradas como variables de entorno")

@@ -4,8 +4,8 @@ FROM python:3.9-slim
 
 # ENV VARIABLES PARA LA AUTENTICACIÓN DE LA API DE RED5G
 
-ENV USERNAME=
-ENV PASSWORD=
+ENV APP_PDF_USERNAME=
+ENV APP_PDF_PASSWORD=
 
 # Establecer el directorio de trabajo en el contenedor
 WORKDIR /app
